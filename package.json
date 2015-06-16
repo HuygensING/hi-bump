@@ -1,0 +1,16 @@
+{
+  "name": "hi-bump",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "bin": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "gijsjan.brouwer@huygens.knaw.nl (https://github.com/Gijsjan)",
+  "license": "ISC",
+  "dependencies": {
+    "cli-color": "^1.0.0",
+    "semver": "^4.3.6"
+  }
+}
