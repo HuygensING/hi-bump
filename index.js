@@ -3,6 +3,7 @@
 var exec = require('child_process').execSync;
 var path = require('path');
 var fs = require('fs');
+var readline = require("readline-sync");
 var semver = require('semver');
 var color = require('cli-color');
 var red = color.red;
@@ -32,6 +33,12 @@ function formatLatestCommits() {
 if (["major", "minor", "patch"].indexOf(release) == -1) {
 	console.error(red("HiBump error: "), "Missing an argument (patch/minor/major).");
 	console.error("For example: `hi-bump patch`");
+	process.exit();
+}
+
+var question = "Upgrade the " + cyan(release) + " version to " + cyan(nextVersion) + "?";
+if (!readline.keyInYNStrict(question)) {
+	console.log(red("HiBump exiting..."));
 	process.exit();
 }
 
