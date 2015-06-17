@@ -6,6 +6,7 @@ var fs = require('fs');
 var readline = require("readline-sync");
 var semver = require('semver');
 var color = require('cli-color');
+
 var red = color.red;
 var cyan = color.cyan;
 var changelogPath, currentChangelogStr;
@@ -15,6 +16,11 @@ var pkg = require(path.resolve(process.cwd(), "package.json"));
 var release = process.argv[2];
 var nextVersion = "v" + semver.inc(pkg.version, release);
 
+/*
+ * Format the commits made between the current version and the next.
+ *
+ * @return {String} - Formatted (as Markdown) commits with a header and a list of the commits.
+ */
 function formatLatestCommits() {
 	// Create the header ie: ### v2.5.3 (2015/04/03 13:28)
 	var d = new Date();
@@ -29,6 +35,11 @@ function formatLatestCommits() {
 	return header + "\n" + lines.join("\n") + "\n\n"
 }
 
+/*
+ * Log error messages
+ *
+ * @param {String} errorMessage
+ */
 function logError(errorMessage) {
 	console.log(red("HiBump error: "), errorMessage);
 }
