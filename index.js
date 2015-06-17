@@ -29,16 +29,32 @@ function formatLatestCommits() {
 	return header + "\n" + lines.join("\n") + "\n\n"
 }
 
+function logError(errorMessage) {
+	console.log(red("HiBump error: "), errorMessage);
+}
+
 // Exit if patch, minor or major aren't given.
 if (["major", "minor", "patch"].indexOf(release) == -1) {
-	console.error(red("HiBump error: "), "Missing an argument (patch/minor/major).");
+	logError("Missing an argument (patch/minor/major)!");
 	console.error("For example: `hi-bump patch`");
 	process.exit();
 }
 
+// Let the user confirm the version upgrade.
 var question = "Upgrade the " + cyan(release) + " version to " + cyan(nextVersion) + "?";
 if (!readline.keyInYNStrict(question)) {
 	console.log(red("HiBump exiting..."));
+	process.exit();
+}
+
+// Check if the current version is available as a git tag.
+// If it is not, the script will fail, because the commits
+// between the current version and the next version cannot
+// be found.
+var gitTagStdout = exec("git tag", {encoding: "utf-8"});
+var gitTags = gitTagStdout.split(/\r?\n/);
+if (gitTags.indexOf(pkg.version) === -1) {
+	logError("Current version not found as git tag!");
 	process.exit();
 }
 
