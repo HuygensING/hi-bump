@@ -53,7 +53,7 @@ if (!readline.keyInYNStrict(question)) {
 // be found.
 var gitTagStdout = exec("git tag", {encoding: "utf-8"});
 var gitTags = gitTagStdout.split(/\r?\n/);
-if (gitTags.indexOf(pkg.version) === -1) {
+if (gitTags.indexOf("v" + pkg.version) === -1) {
 	logError("Current version not found as git tag!");
 	process.exit();
 }
