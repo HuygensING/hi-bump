@@ -8,6 +8,7 @@ var semver = require('semver');
 var color = require('cli-color');
 
 var red = color.red;
+var red = color.red;
 var cyan = color.cyan;
 var changelogPath, currentChangelogStr;
 
@@ -45,7 +46,7 @@ function logError(errorMessage) {
 }
 
 // Exit if patch, minor or major aren't given.
-if (["major", "minor", "patch"].indexOf(release) == -1) {
+if (["major", "minor", "patch"].indexOf(release) === -1) {
 	logError("Missing an argument (patch/minor/major)!");
 	console.error("For example: `hi-bump patch`");
 	process.exit();
